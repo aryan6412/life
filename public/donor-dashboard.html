@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifeline - Donor Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/" class="logo-link">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Lifeline</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="#dashboard" class="nav-link active">Dashboard</a></li>
+                <li><a href="#camps" class="nav-link">Blood Camps</a></li>
+                <li><a href="#rewards" class="nav-link">Rewards</a></li>
+                <li><a href="#donations" class="nav-link">My Donations</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Donor Login</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+            </form>
+            <div class="modal-footer">
+                <p>Don't have an account? <a href="/">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div id="dashboardContent" class="dashboard-content" style="display: none;">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="container">
+                <div class="welcome-section">
+                    <h1>Welcome back, <span id="donorName">Donor</span>!</h1>
+                    <p>Track your donations, earn points, and redeem rewards</p>
+                </div>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <i class="fas fa-tint"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalDonations">0</span>
+                            <span class="stat-label">Total Donations</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalPoints">0</span>
+                            <span class="stat-label">Points Earned</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-gift"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="rewardsRedeemed">0</span>
+                            <span class="stat-label">Rewards Redeemed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard-main">
+            <div class="container">
+                <!-- Quick Actions -->
+                <section class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <button class="action-card" onclick="scrollToSection('camps')">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h3>Find Blood Camps</h3>
+                            <p>Discover upcoming donation camps</p>
+                        </button>
+                        <button class="action-card" onclick="scrollToSection('rewards')">
+                            <i class="fas fa-gift"></i>
+                            <h3>Redeem Rewards</h3>
+                            <p>Use your points for benefits</p>
+                        </button>
+                        <button class="action-card" onclick="scrollToSection('donations')">
+                            <i class="fas fa-history"></i>
+                            <h3>Donation History</h3>
+                            <p>View your donation records</p>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Blood Camps Section -->
+                <section id="camps" class="camps-section">
+                    <h2>Upcoming Blood Camps</h2>
+                    <p class="section-subtitle">Find blood donation camps near you</p>
+
+                    <div id="campsList" class="camps-grid">
+                        <!-- Camps will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Rewards Section -->
+                <section id="rewards" class="rewards-section">
+                    <h2>Rewards & Benefits</h2>
+                    <p class="section-subtitle">Redeem your points for medical benefits</p>
+
+                    <div class="rewards-container">
+                        <div class="points-summary">
+                            <div class="points-card">
+                                <i class="fas fa-star"></i>
+                                <div class="points-info">
+                                    <span class="points-number" id="currentPoints">0</span>
+                                    <span class="points-label">Available Points</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="rewardsList" class="rewards-grid">
+                            <!-- Rewards will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Donations History Section -->
+                <section id="donations" class="donations-section">
+                    <h2>My Donation History</h2>
+                    <p class="section-subtitle">Track your blood donation journey</p>
+
+                    <div id="donationsList" class="donations-list">
+                        <!-- Donations will be loaded here -->
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

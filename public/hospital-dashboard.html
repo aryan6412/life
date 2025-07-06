@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifeline - Hospital Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="hospital-dashboard.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/" class="logo-link">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Lifeline</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="#dashboard" class="nav-link active">Dashboard</a></li>
+                <li><a href="#camps" class="nav-link">Blood Camps</a></li>
+                <li><a href="#requests" class="nav-link">Blood Requests</a></li>
+                <li><a href="#provisions" class="nav-link">Blood Provisions</a></li>
+            </ul>
+            <button class="btn btn-primary nav-login-btn" onclick="showLoginModal()">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Hospital Login</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+            </form>
+            <div class="modal-footer">
+                <p>Don't have an account? <a href="#" id="openRegisterModal">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Hospital Registration</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="registerForm" class="register-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hospitalName">Hospital Name *</label>
+                        <input type="text" id="hospitalName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hospitalEmail">Email Address *</label>
+                        <input type="email" id="hospitalEmail" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hospitalPhone">Phone Number *</label>
+                        <input type="tel" id="hospitalPhone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hospitalType">Hospital Type *</label>
+                        <select id="hospitalType" name="type" required>
+                            <option value="">Select Type</option>
+                            <option value="Government">Government Hospital</option>
+                            <option value="Private">Private Hospital</option>
+                            <option value="Blood Bank">Blood Bank</option>
+                            <option value="Medical Center">Medical Center</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="hospitalAddress">Address *</label>
+                    <textarea id="hospitalAddress" name="address" rows="3" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hospitalCity">City *</label>
+                        <input type="text" id="hospitalCity" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hospitalPassword">Password *</label>
+                        <input type="password" id="hospitalPassword" name="password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-hospital"></i>
+                    Register Hospital
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div id="dashboardContent" class="dashboard-content" style="display: none;">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="container">
+                <div class="welcome-section">
+                    <h1>Welcome, <span id="hospitalName">Hospital</span>!</h1>
+                    <p>Manage blood camps, requests, and provisions</p>
+                </div>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalCamps">0</span>
+                            <span class="stat-label">Blood Camps</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-tint"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalRequests">0</span>
+                            <span class="stat-label">Blood Requests</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalProvisions">0</span>
+                            <span class="stat-label">Blood Provisions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard-main">
+            <div class="container">
+                <!-- Quick Actions -->
+                <section class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <button class="action-card" onclick="showCampForm()">
+                            <i class="fas fa-plus-circle"></i>
+                            <h3>Create Blood Camp</h3>
+                            <p>Organize a new blood donation camp</p>
+                        </button>
+                        <button class="action-card" onclick="showRequestForm()">
+                            <i class="fas fa-tint"></i>
+                            <h3>Request Blood</h3>
+                            <p>Request blood for patients</p>
+                        </button>
+                        <button class="action-card" onclick="showProvisionForm()">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <h3>Provide Blood</h3>
+                            <p>Record blood provided to patients</p>
+                        </button>
+                        <button class="action-card" onclick="scrollToSection('camps')">
+                            <i class="fas fa-calendar-check"></i>
+                            <h3>Manage Camps</h3>
+                            <p>View and manage blood camps</p>
+                        </button>
+                        <button class="action-card" onclick="showRecordDonationModal()">
+
+                            <i class="fas fa-plus-circle"></i>
+                            <h3>Record Donation for Donor</h3>
+                            <p>Credit a donation to a donor</p>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Blood Camps Section -->
+                <section id="camps" class="camps-section">
+                    <h2>Blood Camps Management</h2>
+                    <p class="section-subtitle">Organize and manage blood donation camps</p>
+
+                    <div id="campsList" class="camps-grid">
+                        <!-- Camps will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Blood Requests Section -->
+                <section id="requests" class="requests-section">
+                    <h2>Blood Requests</h2>
+                    <p class="section-subtitle">Manage blood requests and track status</p>
+
+                    <div id="requestsList" class="requests-grid">
+                        <!-- Requests will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Blood Provisions Section -->
+                <section id="provisions" class="provisions-section">
+                    <h2>Blood Provisions</h2>
+                    <p class="section-subtitle">Track blood provided to patients</p>
+
+                    <div id="provisionsList" class="provisions-grid">
+                        <!-- Provisions will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Add Blood Camp Photos Section for hospitals -->
+                <section id="camp-photos" class="camp-photos-section">
+                    <div class="container">
+                        <h2>Blood Camp Highlights</h2>
+                        <p class="section-subtitle">Upload and view photos from your blood donation camps</p>
+                        <form id="campPhotoUploadForm" enctype="multipart/form-data" style="margin-bottom:2rem;">
+                            <label for="campPhotoFile" style="font-weight:500;">Upload a new camp photo:</label>
+                            <input type="file" id="campPhotoFile" name="photo" accept="image/*" required>
+                            <input type="text" id="campPhotoCaption" name="caption" placeholder="Caption (optional)"
+                                style="margin-left:1rem;">
+                            <button type="submit" class="btn btn-primary" style="margin-left:1rem;">Upload</button>
+                            <span id="campPhotoUploadMsg" style="margin-left:1rem;"></span>
+                        </form>
+                        <div class="camp-photos-gallery" id="campPhotosGallery">
+                            <!-- Dynamic gallery will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Blood Camp Form Modal -->
+    <div id="campModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Blood Camp</h2>
+                <span class="close" onclick="closeCampModal()">&times;</span>
+            </div>
+            <form id="campForm" class="camp-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="campName">Camp Name *</label>
+                        <input type="text" id="campName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="campDate">Camp Date *</label>
+                        <input type="date" id="campDate" name="date" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="campTime">Camp Time *</label>
+                        <input type="time" id="campTime" name="time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="campDuration">Duration (Hours) *</label>
+                        <input type="number" id="campDuration" name="duration" min="1" max="12" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="campLocation">Location *</label>
+                    <textarea id="campLocation" name="location" rows="2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="campDescription">Description</label>
+                    <textarea id="campDescription" name="description" rows="3"
+                        placeholder="Additional details about the camp..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Create Camp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Blood Request Form Modal -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request Blood</h2>
+                <span class="close" onclick="closeRequestModal()">&times;</span>
+            </div>
+            <form id="requestForm" class="request-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patientName">Patient Name *</label>
+                        <input type="text" id="patientName" name="patient_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloodType">Blood Type Needed *</label>
+                        <select id="bloodType" name="blood_type" required>
+                            <option value="">Select Blood Type</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="unitsNeeded">Units Needed *</label>
+                        <input type="number" id="unitsNeeded" name="units_needed" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="urgency">Urgency Level *</label>
+                        <select id="urgency" name="urgency" required>
+                            <option value="">Select Urgency</option>
+                            <option value="emergency">Emergency</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="requestReason">Reason for Request</label>
+                    <textarea id="requestReason" name="reason" rows="3"
+                        placeholder="Medical reason for blood request..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Submit Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Blood Provision Form Modal -->
+    <div id="provisionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Provide Blood</h2>
+                <span class="close" onclick="closeProvisionModal()">&times;</span>
+            </div>
+            <form id="provisionForm" class="provision-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="recipientName">Recipient Name *</label>
+                        <input type="text" id="recipientName" name="recipient_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="provisionBloodType">Blood Type *</label>
+                        <select id="provisionBloodType" name="blood_type" required>
+                            <option value="">Select Blood Type</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="unitsProvided">Units Provided *</label>
+                        <input type="number" id="unitsProvided" name="units_provided" min="0.5" step="0.5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="provisionDate">Provision Date *</label>
+                        <input type="date" id="provisionDate" name="provision_date" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="provisionNotes">Notes</label>
+                    <textarea id="provisionNotes" name="notes" rows="3"
+                        placeholder="Additional notes about the provision..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Record Provision
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Record Donation Modal -->
+    <div id="recordDonationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Record Donation for Donor</h2>
+                <span class="close" onclick="closeRecordDonationModal()">&times;</span>
+            </div>
+            <form id="recordDonationForm" class="donation-form">
+                <div class="form-group">
+                    <label for="searchDonor">Search Donor (Email or Phone) *</label>
+                    <input type="text" id="searchDonor" name="searchDonor" required
+                        placeholder="Enter donor email or phone">
+                    <button type="button" class="btn btn-secondary" id="findDonorBtn">Find Donor</button>
+                    <div id="donorSearchResult" style="margin-top: 0.5rem;"></div>
+                </div>
+                <div id="donationFields" style="display:none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="donationDate">Donation Date *</label>
+                            <input type="date" id="donationDate" name="donation_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bloodAmount">Blood Amount (Units) *</label>
+                            <input type="number" id="bloodAmount" name="blood_amount" min="0.5" max="2" step="0.5"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="donationNotes">Notes (Optional)</label>
+                        <textarea id="donationNotes" name="notes" rows="3"
+                            placeholder="Any additional notes about this donation..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Record Donation
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="hospital-dashboard.js"></script>
+</body>
+
+</html>
