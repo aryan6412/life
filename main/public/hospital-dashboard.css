@@ -1,0 +1,623 @@
+/* Hospital Dashboard Specific Styles */
+
+/* Logo Link Styles */
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #dc2626;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logo-link:hover {
+    color: #b91c1c;
+    transform: scale(1.05);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 600px;
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    color: #ffffff;
+    margin: 0;
+}
+
+.close {
+    color: #a1a1aa;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #dc2626;
+}
+
+.login-form,
+.register-form,
+.camp-form,
+.request-form,
+.provision-form {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(220, 38, 38, 0.2);
+    text-align: center;
+    color: #a1a1aa;
+}
+
+.modal-footer a {
+    color: #dc2626;
+    text-decoration: none;
+}
+
+.modal-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(15, 15, 35, 0.8) 100%);
+    padding: 3rem 0;
+    margin-top: 80px;
+    /* Add margin to account for fixed navbar */
+    border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #dc2626 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.welcome-section p {
+    color: #a1a1aa;
+    font-size: 1.1rem;
+}
+
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.stat-card {
+    background: rgba(26, 26, 46, 0.8);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+.stat-card i {
+    font-size: 2rem;
+    color: #dc2626;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #a1a1aa;
+}
+
+/* Dashboard Main */
+.dashboard-main {
+    padding: 3rem 0;
+}
+
+/* Quick Actions */
+.quick-actions {
+    margin-bottom: 4rem;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.action-card {
+    background: rgba(26, 26, 46, 0.8);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    border-color: #dc2626;
+    box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
+}
+
+.action-card i {
+    font-size: 2.5rem;
+    color: #dc2626;
+    margin-bottom: 1rem;
+}
+
+.action-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.action-card p {
+    color: #a1a1aa;
+    font-size: 0.9rem;
+}
+
+/* Camps Section */
+.camps-section {
+    margin-bottom: 4rem;
+}
+
+.camps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.camp-card {
+    background: rgba(26, 26, 46, 0.8);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.camp-card:hover {
+    transform: translateY(-2px);
+}
+
+.camp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.camp-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.camp-date {
+    background: rgba(220, 38, 38, 0.2);
+    color: #dc2626;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.camp-details {
+    margin-bottom: 1rem;
+}
+
+.camp-details p {
+    color: #a1a1aa;
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.camp-details i {
+    color: #dc2626;
+    margin-right: 0.5rem;
+    width: 16px;
+}
+
+/* Requests Section */
+.requests-section {
+    margin-bottom: 4rem;
+}
+
+.requests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.request-card {
+    background: rgba(26, 26, 46, 0.8);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.request-card:hover {
+    transform: translateY(-2px);
+}
+
+.request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.request-patient {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.request-urgency {
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.request-urgency.emergency {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.request-urgency.high {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+}
+
+.request-urgency.medium {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+}
+
+.request-urgency.low {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.request-details {
+    margin-bottom: 1rem;
+}
+
+.request-details p {
+    color: #a1a1aa;
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.request-details i {
+    color: #dc2626;
+    margin-right: 0.5rem;
+    width: 16px;
+}
+
+/* Provisions Section */
+.provisions-section {
+    margin-bottom: 4rem;
+}
+
+.provisions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.provision-card {
+    background: rgba(26, 26, 46, 0.8);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.provision-card:hover {
+    transform: translateY(-2px);
+}
+
+.provision-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.provision-recipient {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.provision-date {
+    background: rgba(220, 38, 38, 0.2);
+    color: #dc2626;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.provision-details {
+    margin-bottom: 1rem;
+}
+
+.provision-details p {
+    color: #a1a1aa;
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.provision-details i {
+    color: #dc2626;
+    margin-right: 0.5rem;
+    width: 16px;
+}
+
+/* Form Styles */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: 0.5rem;
+    background: rgba(26, 26, 46, 0.8);
+    color: #ffffff;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+
+    .stats-overview {
+        grid-template-columns: 1fr;
+    }
+
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .camps-grid,
+    .requests-grid,
+    .provisions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-section h1 {
+        font-size: 2rem;
+    }
+
+    .camp-card,
+    .request-card,
+    .provision-card {
+        padding: 1rem;
+    }
+}
+
+/* Loading States */
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: #a1a1aa;
+}
+
+.loading i {
+    font-size: 2rem;
+    color: #dc2626;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Empty States */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #a1a1aa;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: #dc2626;
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: #a1a1aa;
+}
+
+/* Camp Photo Upload Form Styles */
+#campPhotoUploadForm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(26, 26, 46, 0.7);
+    border-radius: 0.75rem;
+    padding: 1.2rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.06);
+    margin-bottom: 2.5rem;
+}
+
+#campPhotoUploadForm label {
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+#campPhotoFile {
+    background: #18182f;
+    color: #fff;
+    border: 1px solid rgba(220, 38, 38, 0.18);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    width: 180px;
+}
+
+#campPhotoCaption {
+    background: #18182f;
+    color: #fff;
+    border: 1px solid rgba(220, 38, 38, 0.18);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    width: 220px;
+}
+
+#campPhotoUploadForm .btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+}
+
+#campPhotoUploadMsg {
+    min-width: 120px;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    #campPhotoUploadForm {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+    }
+
+    #campPhotoFile,
+    #campPhotoCaption {
+        width: 100%;
+    }
+
+    #campPhotoUploadForm .btn {
+        width: 100%;
+    }
+}

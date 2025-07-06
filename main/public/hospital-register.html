@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifeline - Hospital Registration</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="hospital-dashboard.css">
+    <style>
+        .register-container {
+            max-width: 500px;
+            margin: 4rem auto;
+            background: rgba(26, 26, 46, 0.95);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(220, 38, 38, 0.08);
+            padding: 2.5rem 2rem 2rem 2rem;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .register-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #dc2626;
+        }
+
+        .register-header p {
+            color: #a1a1aa;
+        }
+
+        .register-form .btn {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .register-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #a1a1aa;
+        }
+
+        .register-footer a {
+            color: #dc2626;
+            text-decoration: none;
+        }
+
+        .register-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/" class="logo-link">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Lifeline</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="register-container">
+        <div class="register-header">
+            <h1>Hospital Registration</h1>
+            <p>Register your hospital or blood bank to manage camps, requests, and donations.</p>
+        </div>
+        <form id="hospitalRegisterForm" class="register-form">
+            <div class="form-group">
+                <label for="name">Hospital Name *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="type">Hospital Type *</label>
+                <select id="type" name="type" required>
+                    <option value="">Select Type</option>
+                    <option value="Government">Government Hospital</option>
+                    <option value="Private">Private Hospital</option>
+                    <option value="Blood Bank">Blood Bank</option>
+                    <option value="Medical Center">Medical Center</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="address">Address *</label>
+                <textarea id="address" name="address" rows="2" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="city">City *</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password *</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-hospital"></i> Register Hospital
+            </button>
+            <div id="registerMsg" style="margin-top:1rem;"></div>
+        </form>
+        <div class="register-footer">
+            Already registered? <a href="/hospital-dashboard">Login here</a>
+        </div>
+    </div>
+    <script>
+        document.getElementById('hospitalRegisterForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const form = e.target;
+            const data = {
+                name: form.name.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                type: form.type.value,
+                address: form.address.value,
+                city: form.city.value,
+                password: form.password.value
+            };
+            const msgDiv = document.getElementById('registerMsg');
+            msgDiv.innerHTML = '';
+            try {
+                const res = await fetch('/api/hospital/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (res.ok) {
+                    msgDiv.innerHTML = '<span style="color:#22c55e;">Registration successful! Redirecting to login...</span>';
+                    setTimeout(() => {
+                        window.location.href = '/hospital-dashboard';
+                    }, 1800);
+                } else {
+                    msgDiv.innerHTML = '<span style="color:#dc2626;">' + (result.error || 'Registration failed') + '</span>';
+                }
+            } catch (err) {
+                msgDiv.innerHTML = '<span style="color:#dc2626;">Network error. Please try again.</span>';
+            }
+        });
+    </script>
+</body>
+
+</html>

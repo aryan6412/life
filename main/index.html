@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifeline - Blood Donor Registration</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/" class="logo-link">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Lifeline</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#donors" class="nav-link">Find Donors</a></li>
+                <li><a href="#requests" class="nav-link">Blood Requests</a></li>
+            </ul>
+            <div class="nav-login-dropdown">
+                <button class="btn btn-primary nav-login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login / Register <i class="fas fa-caret-down"></i>
+                </button>
+                <div class="nav-login-dropdown-content">
+                    <a href="/donor-dashboard">Donor Login</a>
+                    <a href="#register" id="donorRegisterNav">Donor Register</a>
+                    <a href="/hospital-dashboard">Hospital Login</a>
+                    <a href="/hospital-register.html" id="hospitalRegisterNav">Hospital Register</a>
+                </div>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Save Lives Through Blood Donation</h1>
+            <p>Join our community of blood donors and help save lives. Every donation counts.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <i class="fas fa-users"></i>
+                    <span class="stat-number">1,234</span>
+                    <span class="stat-label">Registered Donors</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-tint"></i>
+                    <span class="stat-number">5,678</span>
+                    <span class="stat-label">Lives Saved</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-hospital"></i>
+                    <span class="stat-number">89</span>
+                    <span class="stat-label">Partner Hospitals</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('register')">
+                    <i class="fas fa-user-plus"></i>
+                    Register as Donor
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToSection('requests')">
+                    <i class="fas fa-search"></i>
+                    Find Blood
+                </button>
+                <a href="/donor-dashboard" class="btn btn-primary">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Donor Dashboard
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="blood-drop-animation">
+                <div class="drop"></div>
+                <div class="drop"></div>
+                <div class="drop"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donors Section -->
+    <section id="donors" class="donors-section">
+        <div class="container">
+            <h2>Find Blood Donors</h2>
+            <p class="section-subtitle">Search for available donors by blood type</p>
+            <div class="search-container">
+                <div class="blood-type-filter">
+                    <h3>Filter by Blood Type:</h3>
+                    <div class="blood-type-buttons">
+                        <button class="blood-type-btn" data-type="all">All Types</button>
+                        <button class="blood-type-btn" data-type="A+">A+</button>
+                        <button class="blood-type-btn" data-type="A-">A-</button>
+                        <button class="blood-type-btn" data-type="B+">B+</button>
+                        <button class="blood-type-btn" data-type="B-">B-</button>
+                        <button class="blood-type-btn" data-type="AB+">AB+</button>
+                        <button class="blood-type-btn" data-type="AB-">AB-</button>
+                        <button class="blood-type-btn" data-type="O+">O+</button>
+                        <button class="blood-type-btn" data-type="O-">O-</button>
+                    </div>
+                </div>
+            </div>
+            <div id="donorsList" class="donors-grid">
+                <!-- Donors will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Move Blood Camp Photos Section here -->
+    <section id="camp-photos" class="camp-photos-section">
+        <div class="container">
+            <h2>Blood Camp Highlights</h2>
+            <p class="section-subtitle">A glimpse of our recent blood donation camps and community events</p>
+            <div class="camp-photos-gallery" id="campPhotosGallery">
+                <!-- Dynamic gallery will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Blood Requests Section -->
+    <section id="requests" class="requests-section">
+        <div class="container">
+            <h2>Blood Requests</h2>
+            <p class="section-subtitle">Request blood or view urgent requests</p>
+
+            <div class="requests-container">
+                <div class="request-form-container">
+                    <h3>Create Blood Request</h3>
+                    <form id="requestForm" class="request-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patient_name">Patient Name *</label>
+                                <input type="text" id="patient_name" name="patient_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="request_blood_type">Blood Type Needed *</label>
+                                <select id="request_blood_type" name="blood_type" required>
+                                    <option value="">Select Blood Type</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="units_needed">Units Needed *</label>
+                                <input type="number" id="units_needed" name="units_needed" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="urgency">Urgency Level *</label>
+                                <select id="urgency" name="urgency" required>
+                                    <option value="">Select Urgency</option>
+                                    <option value="low">Low</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                    <option value="emergency">Emergency</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="hospital">Hospital *</label>
+                                <input type="text" id="hospital" name="hospital" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact_phone">Contact Phone *</label>
+                                <input type="tel" id="contact_phone" name="contact_phone" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Create Request
+                        </button>
+                    </form>
+                </div>
+
+                <div class="requests-list-container">
+                    <h3>Recent Blood Requests</h3>
+                    <div id="requestsList" class="requests-list">
+                        <!-- Requests will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>About Lifeline</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Lifeline is a blood donor management system that connects donors with those in need. Our platform
+                        makes it easy to register as a donor, find blood donors, and request blood when needed.</p>
+                    <p>We believe that every blood donation can save up to three lives. Join our community and make a
+                        difference today.</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Safe & Secure</h4>
+                            <p>Your information is protected and secure</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-clock"></i>
+                            <h4>24/7 Available</h4>
+                            <p>Access the platform anytime, anywhere</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <h4>Save Lives</h4>
+                            <p>Every donation makes a difference</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Lifeline</h3>
+                    <p>Connecting blood donors with those in need.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#register">Register</a></li>
+                        <li><a href="#donors">Find Donors</a></li>
+                        <li><a href="#requests">Blood Requests</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@lifeline.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Lifeline. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="app.js"></script>
+    <script>
+        async function loadCampPhotos() {
+            const gallery = document.getElementById('campPhotosGallery');
+            gallery.innerHTML = '<div style="color:#a1a1aa;">Loading photos...</div>';
+            try {
+                const res = await fetch('/api/camp-photos');
+                const photos = await res.json();
+                if (Array.isArray(photos) && photos.length > 0) {
+                    gallery.innerHTML = photos.map(photo => `
+                    <div class="camp-photo-card">
+                        <img src="/uploads/camp-photos/${photo.filename}" alt="Camp Photo">
+                        <div class="photo-caption">${photo.caption ? photo.caption : ''}</div>
+                    </div>
+                `).join('');
+                } else {
+                    gallery.innerHTML = '<div style="color:#a1a1aa;">No camp photos uploaded yet.</div>';
+                }
+            } catch (e) {
+                gallery.innerHTML = '<div style="color:#dc2626;">Failed to load photos.</div>';
+            }
+        }
+        loadCampPhotos();
+    </script>
+</body>
+
+</html>
