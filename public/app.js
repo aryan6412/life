@@ -3,7 +3,7 @@ let currentDonors = [];
 let currentRequests = [];
 
 // API Base URL
-const API_BASE = '/api';
+const API_BASE = 'https://lifeline-brp.onrender.com/api';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function () {
